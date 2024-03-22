@@ -5,6 +5,5 @@ export interface Room {
     code: string;
     players: Player[];
     lastUsed: Date;
-    questionsUsed: string[];
     gameState: GameState;
 }
