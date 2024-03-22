@@ -2,13 +2,13 @@ import React, { FormEvent, useState } from 'react';
 import { GameState } from '/models/gameState';
 import { Initial } from './Initial';
 import { Player } from '/models/player';
-import { generateQuestionBank } from '/utils/generateQuestionBank';
 import { Waiting } from './Waiting';
 import { EnterName } from './EnterName';
 import { DUMMY_PLAYERS } from '/models/dummyPlayers';
 import { QuestionVoting } from './QuestionVoting';
 import { GameType, Question } from '/models/questions';
 import { QuestionDisplay } from './QuestionDisplay';
+import { PerformAction } from './PerformAction';
 
 export const App = () => {
 
@@ -22,6 +22,22 @@ export const App = () => {
 
   const startGame = () => {
     setGameState('Question Voting');
+  }
+
+  const continueToPerformAction = () => {
+    setGameState('Perform Action');
+  }
+
+  const continueToFakerVoting = () => {
+    setGameState('Faker Voting')
+  }
+
+  const continueToResults = () => {
+    setGameState('Results')
+  }
+
+  const returnToWaiting = () => {
+    setGameState('Waiting')
   }
 
   const [playerNameInput, setPlayerNameInput] = useState("");
@@ -49,7 +65,6 @@ export const App = () => {
       room: 'WEST',
       isHost: true,
       isFaker: false,
-      questionBank: generateQuestionBank()
     }
     setPlayer(player);
 
@@ -93,7 +108,9 @@ export const App = () => {
     } else if (state === 'Question Voting') {
       return <QuestionVoting handleCategoryVote={handleCategoryVote} setCategoryVoteInput={setCategoryVoteInput}></QuestionVoting>
     } else if (state === 'Question Display') {
-      return <QuestionDisplay category={category} player={player!} isFaker={isFaker} setQuestion={setQuestion}></QuestionDisplay>
+      return <QuestionDisplay category={category} player={player!} isFaker={isFaker} setQuestion={setQuestion} continueToPerformAction={continueToPerformAction}></QuestionDisplay>
+    } else if (state === 'Perform Action') {
+      return <PerformAction category={category} continueToFakerVoting={continueToFakerVoting}></PerformAction>
     }
     return '';
   }

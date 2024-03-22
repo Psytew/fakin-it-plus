@@ -5,5 +5,4 @@ export interface Player {
     room: string;
     isHost: boolean;
     isFaker: boolean;
-    questionBank: Record<GameType, Array<Question>>;
 }
