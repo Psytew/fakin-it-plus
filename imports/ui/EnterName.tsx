@@ -1,13 +1,13 @@
 import React, { FormEvent } from 'react';
 
-interface WaitingProps {
+interface EnterNameProps {
     isNewGame: boolean,
     handleNameSubmit: (event: FormEvent<HTMLFormElement>) => void,
     setPlayerName: React.Dispatch<React.SetStateAction<string>>,
     setRoomInput: React.Dispatch<React.SetStateAction<string>>,
 }
 
-export const EnterName = (props: WaitingProps) => (
+export const EnterName = (props: EnterNameProps) => (
   <div>
     <p>Enter Name</p>
     <form onSubmit={props.handleNameSubmit}>

@@ -41,6 +41,8 @@ export type NumberPressureQuestion = typeof NUMBER_PRESSURE_QUESTIONS[number];
 export type ImpersifacionsQuestion = typeof IMPERSIFACIONS_QUESTIONS[number];
 export type ThisMuchQuestion = typeof THIS_MUCH_QUESTIONS[number];
 
-export type Question = YouGottaPointQuestion | FaceValueQuestion | HandsOfTruthQuestion | NumberPressureQuestion | ImpersifacionsQuestion | ThisMuchQuestion;
+export type Question = YouGottaPointQuestion | FaceValueQuestion | HandsOfTruthQuestion | NumberPressureQuestion | ImpersifacionsQuestion | ThisMuchQuestion | 'PLACEHOLDER';
 
-export type GameType = 'You Gotta Point' | 'Face Value' | 'Hands of Truth' | 'Number Pressure' | 'Impersifacions' | 'This Much';
+export const GAME_TYPES = ['You Gotta Point', 'Face Value', 'Hands of Truth', 'Number Pressure', 'Impersifacions', 'This Much', 'None'] as const;
+
+export type GameType = typeof GAME_TYPES[number];
