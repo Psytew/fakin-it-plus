@@ -1,11 +1,19 @@
 import React from 'react';
-import { Hello } from './Hello';
-import { Info } from './Info';
+import { GameState } from '/models/gameState';
+import { Initial } from './Initial';
+
+const gameState: GameState = 'Initial';
+
+function returnStateComponent(state: GameState) {
+  if (state === 'Initial') {
+    return <Initial></Initial>
+  }
+  return '';
+}
 
 export const App = () => (
   <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello />
-    <Info />
+    <h1>Fakin' It Plus</h1>
+    { returnStateComponent(gameState) }
   </div>
 );
