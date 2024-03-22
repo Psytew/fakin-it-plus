@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface InitialProps {
-    moveToNameNew: () => void,
     moveToNameExisting: () => void,
+    moveToNameNew: () => void,
 }
 
 export const Initial = (props: InitialProps) => (
