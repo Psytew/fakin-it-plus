@@ -39,7 +39,7 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
     <div>
       <p>Category: { props.category }</p>
       <p>{ !props.isFaker ? question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
-      <p>{ timer }</p>
+      <p className="timer">{ timer }</p>
     </div>
   )
 };

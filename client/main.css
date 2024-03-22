@@ -1,4 +1,92 @@
-body {
+.background {
   padding: 10px;
   font-family: sans-serif;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: lightgrey;
+  height: 90vh;
+  position: relative;
+}
+
+.container h1 {
+  text-align: center;
+}
+
+.container .button {
+  display: block;
+  margin: 0 auto 10px;
+  font-size: 16px;
+}
+
+.container p {
+  text-align: center;
+}
+
+.container .form > div {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  font-size: 16px;
+  margin: 0 auto 10px;
+}
+
+.container .playerList {
+  padding-left: 0;
+}
+
+.container .playerList > li {
+  display: block;
+  background-color: #e9e9e9;
+  width: 250px;
+  margin: 0 auto 5px;
+  padding: 5px;
+}
+
+.container .select {
+  margin: 0 auto 10px;
+  font-size: 16px;
+}
+
+.container .timer {
+  position: absolute;
+  top: 5px;
+  right: 30px;
+  font-size: 24px;
+}
+
+.background.youGottaPoint {
+  background-color: green;
+}
+
+.background.numberPressure {
+  background-color: blue;
+}
+
+.background.faceValue {
+  background-color: yellow;
+}
+
+.background.handsOfTruth {
+  background-color: red;
+}
+
+.background.thisMuch {
+  background-color: orange;
+}
+
+.background.impersifacions {
+  background-color: purple
 }

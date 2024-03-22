@@ -7,9 +7,9 @@ interface QuestionVotingProps {
 }
 
 export const QuestionVoting = (props: QuestionVotingProps) => (
-  <div>
+  <div className="flex flex-column">
     <p>Pick a category</p>
-    <select onChange={(e) => {
+    <select className="select" onChange={(e) => {
       // FIGURE THIS OUT OH MY GOD I HATE THIS
       let { name, value } = e.target
         props.setCategoryVoteInput(value as GameType)}
@@ -20,7 +20,7 @@ export const QuestionVoting = (props: QuestionVotingProps) => (
     </select>
     <form onSubmit={props.handleCategoryVote}>
       
-      <button>Submit</button>
+      <button className="button">Submit</button>
     </form>
   </div>
 );

@@ -25,8 +25,8 @@ export const Results = (props: ResultsProps) => {
   reduceTimer();
 
   if (props.correct) {
-    return <><p>You're correct!</p><p>{ timer }</p></>
+    return <><p>You're correct!</p><p className="timer">{ timer }</p></>
   } else {
-    return <><p>Nope, not the faker!</p><p>{ timer }</p></>
+    return <><p>Nope, not the faker!</p><p className="timer">{ timer }</p></>
   }
 };

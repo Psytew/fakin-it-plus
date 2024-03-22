@@ -11,11 +11,11 @@ export const Waiting = (props: WaitingProps) => (
   <div>
     <p>Room Code: { props.room }</p>
     <p>Players</p>
-    <ul>
+    <ul className="playerList">
     {
         props.players.map(player => <li key={player.name}> {player.name } ({player.points})</li>)
     }
     </ul>
-    <button disabled={props.players.length < 3} onClick={props.startGame}>Start Game</button>
+    <button className="button" disabled={props.players.length < 3} onClick={props.startGame}>Start Game</button>
   </div>
 );

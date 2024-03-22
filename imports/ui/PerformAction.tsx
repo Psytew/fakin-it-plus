@@ -27,7 +27,7 @@ export const PerformAction = (props: PerformActionProps) => {
     <div>
       <p>Category: { props.category }</p>
       <p>Go!</p>
-      <p>{ timer }</p>
+      <p className="timer">{ timer }</p>
     </div>
   )
 };

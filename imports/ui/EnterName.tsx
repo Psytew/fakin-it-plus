@@ -10,13 +10,13 @@ interface EnterNameProps {
 export const EnterName = (props: EnterNameProps) => (
   <div>
     <p>Enter Name</p>
-    <form onSubmit={props.handleNameSubmit}>
-      <label>Name</label>
-      <input onChange={(e) => props.setPlayerName(e.target.value)} />
+    <form className="form" onSubmit={props.handleNameSubmit}>
+      <div><label>Name</label>
+      <input onChange={(e) => props.setPlayerName(e.target.value)} /></div>
       { 
-        !props.isNewGame ? <><br /><label>Room Code</label><input onChange={(e) => props.setRoomInput(e.target.value)} /></> : ''
+        !props.isNewGame ? <div><label>Room Code</label><input onChange={(e) => props.setRoomInput(e.target.value)} /></div> : ''
       }
-      <button>Submit</button>
+      <button className="button">Submit</button>
     </form>
   </div>
 );

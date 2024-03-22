@@ -34,9 +34,9 @@ export const FakerVoting = (props: FakerVotingProps) => {
     reduceTimer();
     
     return (
-    <div>
+    <div className="flex flex-column">
         <p>Vote for who you think the Faker is!</p>
-        <select onChange={(e) => {
+        <select className="select" onChange={(e) => {
         let { name, value } = e.target
         props.setFakerVote(value)}
         }>
@@ -44,7 +44,7 @@ export const FakerVoting = (props: FakerVotingProps) => {
         props.players.map(player => <option key={player.name} value={player.name}>{ player.name }</option>)
         }
         </select>
-        <p>{ timer }</p>
+        <p className="timer">{ timer }</p>
     </div>
     )
 }

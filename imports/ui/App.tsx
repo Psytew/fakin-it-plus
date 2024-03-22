@@ -99,6 +99,7 @@ export const App = () => {
 
   function initializeWaitingRoom() {
     setRound(1);
+    setCategory('None');
     setGameState('Waiting');
   }
 
@@ -147,8 +148,24 @@ export const App = () => {
     return '';
   }
 
-  return <div>
+  let classValue = 'background';
+
+  if (category === 'You Gotta Point') {
+    classValue = 'background youGottaPoint';
+  } else if (category === 'Face Value') {
+    classValue = 'background faceValue'
+  } else if (category === 'Hands of Truth') {
+    classValue = 'background handsOfTruth'
+  } else if (category === 'Number Pressure') {
+    classValue = 'background numberPressure'
+  } else if (category === 'Impersifacions') {
+    classValue = 'background impersifacions'
+  } else if (category === 'This Much') {
+    classValue = 'background thisMuch'
+  }
+
+  return <div className={classValue}><div className="container">
     <h1>Fakin' It Plus</h1>
     { returnStateComponent(gameState) }
-  </div>
+  </div></div>
 };

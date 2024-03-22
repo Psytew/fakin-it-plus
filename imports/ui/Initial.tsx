@@ -7,7 +7,7 @@ interface InitialProps {
 
 export const Initial = (props: InitialProps) => (
   <div>
-    <button onClick={props.moveToNameExisting}>Join Game</button>
-    <button onClick={props.moveToNameNew}>Create Game</button>
+    <button className="button" onClick={props.moveToNameExisting}>Join Game</button>
+    <button className="button" onClick={props.moveToNameNew}>Create Game</button>
   </div>
 );
