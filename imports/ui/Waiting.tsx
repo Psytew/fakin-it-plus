@@ -13,7 +13,7 @@ export const Waiting = (props: WaitingProps) => (
     <p>Players</p>
     <ul>
     {
-        props.players.map(player => <li key={player.name}> {player.name }</li>)
+        props.players.map(player => <li key={player.name}> {player.name } ({player.points})</li>)
     }
     </ul>
     <button disabled={props.players.length < 3} onClick={props.startGame}>Start Game</button>

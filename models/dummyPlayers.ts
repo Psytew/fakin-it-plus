@@ -6,11 +6,13 @@ export const DUMMY_PLAYERS = [
         room: 'XXXX',
         isHost: false,
         isFaker: false,
+        points: 0,
     },
     {
         name: 'Sydney',
         room: 'XXXX',
         isHost: false,
         isFaker: false,
+        points: 0,
     },
 ] as Player[];

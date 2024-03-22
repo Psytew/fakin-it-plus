@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GameType, Question } from '/models/questions';
 import { Player } from '/models/player';
-import { TIMER } from '/models/timer';
+import { ACTION_TIMER } from '/models/timer';
 import { generateQuestionBank } from '/utils/generateQuestionBank';
 
 interface QuestionDisplayProps {
@@ -20,7 +20,7 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
     props.setQuestion(question);
   });
 
-  const [timer, setTimer] = useState(TIMER);
+  const [timer, setTimer] = useState(ACTION_TIMER);
 
   function reduceTimer() {
     if (timer === 0) {
@@ -38,7 +38,7 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
   return (
     <div>
       <p>Category: { props.category }</p>
-      <p>{ props.isFaker ? question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
+      <p>{ !props.isFaker ? question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
       <p>{ timer }</p>
     </div>
   )

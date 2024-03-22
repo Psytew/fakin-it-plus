@@ -1,1 +1,2 @@
-export const TIMER = 15;
+export const ACTION_TIMER = 10;
+export const VOTING_TIMER = 10;

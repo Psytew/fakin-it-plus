@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GameType } from '/models/questions';
-import { TIMER } from '/models/timer';
+import { ACTION_TIMER } from '/models/timer';
 
 interface PerformActionProps {
     category: GameType,
@@ -8,7 +8,7 @@ interface PerformActionProps {
 }
 
 export const PerformAction = (props: PerformActionProps) => {
-    const [timer, setTimer] = useState(TIMER);
+    const [timer, setTimer] = useState(ACTION_TIMER);
 
   function reduceTimer() {
     if (timer === 0) {
@@ -26,7 +26,7 @@ export const PerformAction = (props: PerformActionProps) => {
   return (
     <div>
       <p>Category: { props.category }</p>
-      <p>Do it!</p>
+      <p>Go!</p>
       <p>{ timer }</p>
     </div>
   )
