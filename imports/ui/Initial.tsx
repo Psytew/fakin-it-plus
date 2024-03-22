@@ -1,8 +1,13 @@
 import React from 'react';
 
-export const Initial = () => (
+interface InitialProps {
+    moveToNameNew: () => void,
+    moveToNameExisting: () => void,
+}
+
+export const Initial = (props: InitialProps) => (
   <div>
-    <button>Join Game</button>
-    <button>Create Game</button>
+    <button onClick={props.moveToNameExisting}>Join Game</button>
+    <button onClick={props.moveToNameNew}>Create Game</button>
   </div>
 );

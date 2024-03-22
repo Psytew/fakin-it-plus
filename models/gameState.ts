@@ -1,5 +1,7 @@
 const GAME_STATES = [
     'Initial',
+    'Enter Name New',
+    'Enter Name Existing',
     'Waiting',
     'Question Voting',
     'Question Display',
