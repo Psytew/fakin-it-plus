@@ -4,7 +4,6 @@ import { Initial } from './Initial';
 import { Player } from '/models/player';
 import { Waiting } from './Waiting';
 import { EnterName } from './EnterName';
-import { DUMMY_PLAYERS } from '/models/dummyPlayers';
 import { QuestionVoting } from './QuestionVoting';
 import { GameType, Question } from '/models/questions';
 import { QuestionDisplay } from './QuestionDisplay';
@@ -14,6 +13,7 @@ import { Results } from './Results';
 import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
+import { Games } from '../api/games';
 
 export const App = () => {
 
@@ -113,9 +113,27 @@ export const App = () => {
   function joinRoom(code: string) {
     Meteor.subscribe('MyGame');
     Session.set("inGame", true);
-    setRoom(code);
-    setPlayers([player!]);
+
+    const MyGame = Games.find({code});
+    const myGameSnapshot = Games.findOne({ code })!;
+
+    setRoom(myGameSnapshot.code);
+    setPlayers(myGameSnapshot.players);
     initializeWaitingRoom();
+
+    MyGame.observeChanges({
+      changed: function (id: string, fields: Record<string, unknown>) {
+        if (fields.players) {
+          setPlayers(fields.players as Player[]);
+        }
+        if (fields.gameState) {
+          setGameState(fields.gameState as GameState);
+        }
+        if (fields.question) {
+          setQuestion(fields.question as Question);
+        }
+      },
+    });
   }
 
   function initializeWaitingRoom() {

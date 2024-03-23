@@ -6,13 +6,21 @@ Meteor.publish('Games', function gamesPublication() {
     fields:{
       "code": 1,
       "players": 1,
+      "lastUsed": 1,
+      "gameState": 1,
+      "availableQuestions": 1,
     }
   });
 });
 
 Meteor.publish('MyGame', function myGamePublication(code: string) {
   return Games.find(
-      {code}
+      {code}, {
+        fields:{
+          "code": 1,
+          "players": 1,
+        }
+      }
   );
 });
 

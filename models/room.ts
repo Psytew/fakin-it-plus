@@ -8,4 +8,5 @@ export interface Room {
     lastUsed: Date;
     gameState: GameState;
     availableQuestions: Record<GameType, Set<Question>>;
+    question: Question;
 }
