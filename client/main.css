@@ -68,25 +68,25 @@
 }
 
 .background.youGottaPoint {
-  background-color: green;
+  background-color: #34c834;
 }
 
 .background.numberPressure {
-  background-color: blue;
+  background-color: #0395f3;
 }
 
 .background.faceValue {
-  background-color: yellow;
+  background-color: #ffcc34;
 }
 
 .background.handsOfTruth {
-  background-color: red;
+  background-color: #cd3333;
 }
 
 .background.thisMuch {
-  background-color: orange;
+  background-color: #fd6a0a;
 }
 
 .background.impersifacions {
-  background-color: purple
+  background-color: #8a5a8a
 }
