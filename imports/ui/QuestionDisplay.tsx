@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameType, Question } from '/models/questions';
 import { Player } from '/models/player';
 import { ACTION_TIMER } from '/models/timer';
@@ -13,27 +13,22 @@ interface QuestionDisplayProps {
 }
 
 export const QuestionDisplay = (props: QuestionDisplayProps) => {
-  // MAYBE LEARN HOW TO MOVE THIS? THIS WILL NEED TO BE HANDLED BY THE SERVER AT LEAST PARTIALLY
+  const [timer, setTimer] = useState(() => {
+    return ACTION_TIMER;
+  });
+
   const questionBank = generateQuestionBank();
   const question = questionBank[props.category]![questionBank[props.category].length - 1]!;
   setTimeout(() => {
     props.setQuestion(question);
   });
 
-  const [timer, setTimer] = useState(ACTION_TIMER);
-
-  function reduceTimer() {
+  React.useEffect(() => {
+    timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
     if (timer === 0) {
       props.continueToPerformAction();
-    } else {
-      setTimeout(() => {
-        setTimer(timer - 1);
-        reduceTimer();
-      }, 1000)
     }
-  }
-
-  reduceTimer();
+  }, [timer]);
 
   return (
     <div>

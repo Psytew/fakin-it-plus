@@ -7,20 +7,16 @@ interface ResultsProps {
 }
 
 export const Results = (props: ResultsProps) => {
-  const [timer, setTimer] = useState(ACTION_TIMER);
+  const [timer, setTimer] = useState(() => {
+    return ACTION_TIMER;
+  });
 
-  function reduceTimer() {
+  React.useEffect(() => {
+    timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
     if (timer === 0) {
       props.continueAfterResults(props.correct);
-    } else {
-      setTimeout(() => {
-        setTimer(timer - 1);
-        reduceTimer();
-      }, 1000)
     }
-  }
-
-  reduceTimer();
+  }, [timer]);
 
   if (props.correct) {
     return <><p>You're correct!</p><p className="timer">{ timer }</p></>

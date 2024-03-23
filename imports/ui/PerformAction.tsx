@@ -8,20 +8,16 @@ interface PerformActionProps {
 }
 
 export const PerformAction = (props: PerformActionProps) => {
-    const [timer, setTimer] = useState(ACTION_TIMER);
+  const [timer, setTimer] = useState(() => {
+    return ACTION_TIMER;
+  });
 
-  function reduceTimer() {
+  React.useEffect(() => {
+    timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
     if (timer === 0) {
       props.continueToFakerVoting();
-    } else {
-      setTimeout(() => {
-        setTimer(timer - 1);
-        reduceTimer();
-      }, 1000)
     }
-  }
-
-  reduceTimer();
+  }, [timer]);
 
   return (
     <div>

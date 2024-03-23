@@ -9,29 +9,20 @@ interface FakerVotingProps {
 }
 
 export const FakerVoting = (props: FakerVotingProps) => {
-    const [timer, setTimer] = useState(VOTING_TIMER);
+    const [timer, setTimer] = useState(() => {
+        return VOTING_TIMER;
+    });
 
-    function reduceTimer() {
-        if (timer === 15) {
-            props.setFakerVote(props.players[0].name);
-        }
-        if (timer === 0) {
-            props.continueToResults();
-        } else {
-            setTimeout(() => {
-            setTimer(timer - 1);
-            reduceTimer();
-            }, 1000)
-        }
-    }
+    React.useEffect(() => {
+        props.setFakerVote(props.players[0].name);
+    })
 
-    // OKAY SO I THINK WHAT'S HAPPENING HERE IS THAT THIS CODE IS CALLED EVERY SINGLE FRAME
-    // SO THAT'S WHY THE NUMBERS ARE GLITCHING OUT AND I'M GETTING SOME WEIRD BEHAVIOR WITH STATE
-    // NEED TO LOOK INTO REACT HOOKS TO DO THIS IN A MORE CLEAN WAY
-    // AND MOVE THE setFakerVote OUT OF THE REDUCETIMER METHOD
-    // THIS WORKS FOR NOW THOUGH
-    // ALSO THE FIRST GUESS SEEMS MAYBE OFF THIS WAY I DUNNO MAN
-    reduceTimer();
+    React.useEffect(() => {
+      timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
+      if (timer === 0) {
+        props.continueToResults();
+      }
+    }, [timer]);
     
     return (
     <div className="flex flex-column">
