@@ -18,7 +18,7 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
   });
 
   const questionBank = generateQuestionBank();
-  const question = questionBank[props.category]![questionBank[props.category].length - 1]!;
+  const question = [...questionBank[props.category]][0];
   setTimeout(() => {
     props.setQuestion(question);
   });

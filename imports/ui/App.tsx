@@ -11,6 +11,9 @@ import { QuestionDisplay } from './QuestionDisplay';
 import { PerformAction } from './PerformAction';
 import { FakerVoting } from './FakerVoting';
 import { Results } from './Results';
+import { Session } from 'meteor/session';
+import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 
 export const App = () => {
 
@@ -80,27 +83,40 @@ export const App = () => {
 
     const player = {
       name: playerNameInput,
-      room: 'WEST',
-      isHost: true,
+      room: '',
+      isHost: gameState === 'Enter Name New',
       isFaker: false,
       points: 0,
+      userId: Random.secret()
     }
     setPlayer(player);
 
     if (gameState === 'Enter Name New') {
-      setRoom('ABCD');
+      Meteor.call("games.new", player, (_error: unknown, result: string) => {
+        if (result === "ERROR") {
+          alert("Error creating room");
+        } else {
+          joinRoom(result);
+        }
+      });
     } else {
-      setRoom(roomInput);
+      Meteor.call("games.join", player, roomInput, (_error: unknown, result: string) => {
+        if (result === "ERROR") {
+          alert("Error joining room. Are you sure you spelled the room code correctly?");
+        } else {
+          joinRoom(result);
+        }
+      })
     }
-
-    const dummyPlayers = DUMMY_PLAYERS;
-    for (const player of dummyPlayers) {
-      player.room = room;
-    }
-
-    setPlayers([player].concat(dummyPlayers));
-    initializeWaitingRoom()
   };
+
+  function joinRoom(code: string) {
+    Meteor.subscribe('MyGame');
+    Session.set("inGame", true);
+    setRoom(code);
+    setPlayers([player!]);
+    initializeWaitingRoom();
+  }
 
   function initializeWaitingRoom() {
     setRound(1);

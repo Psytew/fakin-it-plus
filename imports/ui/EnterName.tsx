@@ -9,7 +9,6 @@ interface EnterNameProps {
 
 export const EnterName = (props: EnterNameProps) => (
   <div>
-    <p>Enter Name</p>
     <form className="form" onSubmit={props.handleNameSubmit}>
       <div><label>Name</label>
       <input onChange={(e) => props.setPlayerName(e.target.value)} /></div>
