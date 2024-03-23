@@ -20,8 +20,6 @@ export const Results = (props: ResultsProps) => {
     }
   }
 
-  // COMPUTE THE POINTS HERE OR SOMETHING
-
   reduceTimer();
 
   if (props.correct) {

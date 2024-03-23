@@ -31,13 +31,18 @@ export const App = () => {
   }
 
   const continueToFakerVoting = () => {
-    setGameState('Faker Voting')
+    setGameState('Faker Voting');
   }
 
   const continueToResults = () => {
-    console.log(fakerVote);
-    setCorrectGuess(fakerVote === faker);
-    setGameState('Results')
+    const correct = fakerVote === faker;
+    setCorrectGuess(correct);
+    if (correct && !isFaker || !correct && isFaker) {
+      const newPoints = player!.points + 1;
+      player!.points = newPoints;
+      setPlayer(player);
+    }
+    setGameState('Results');
   }
 
   const continueAfterResults = (correct: boolean) => {
