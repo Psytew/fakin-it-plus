@@ -13,6 +13,12 @@ Meteor.methods({
     "games.join"(player: Player, code: string) {    
         const room = Games.findOne({code});
         if (room) {
+            if (room.players.length >= 10) {
+                return "ERROR_ROOM_FULL";
+            }
+            if (room.gameState !== 'Waiting') {
+                return "ERROR_NOT_WAITING";
+            }
             const players = [...room.players, player];
             Games.update(
                 {code},
@@ -27,7 +33,7 @@ Meteor.methods({
 
             return code;
         } else {
-            return "ERROR";
+            return "ERROR_ROOM_CODE";
         }
     },
 

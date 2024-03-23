@@ -101,8 +101,12 @@ export const App = () => {
       });
     } else {
       Meteor.call("games.join", player, roomInput, (_error: unknown, result: string) => {
-        if (result === "ERROR") {
+        if (result === "ERROR_ROOM_CODE") {
           alert("Error joining room. Are you sure you spelled the room code correctly?");
+        } else if (result === "ERROR_ROOM_FULL") {
+          alert("Sorry, this room is full.");
+        } else if (result === "ERROR_NOT_WAITING") {
+          alert("This room is actively in a round of gameplay.")
         } else {
           joinRoom(result);
         }
