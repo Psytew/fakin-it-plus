@@ -34,13 +34,11 @@ export const App = () => {
   }
 
   const continueToResults = () => {
-    const correct = fakerVote === faker;
-    setCorrectGuess(correct);
-    if (correct && !isFaker || !correct && isFaker) {
-      const newPoints = player!.points + 1;
-      player!.points = newPoints;
-      setPlayer(player);
-    }
+    // if (correct && !isFaker || !correct && isFaker) {
+    //   const newPoints = player!.points + 1;
+    //   player!.points = newPoints;
+    //   setPlayer(player);
+    // }
     setGameState('Results');
   }
 
@@ -55,8 +53,7 @@ export const App = () => {
 
   const [playerNameInput, setPlayerNameInput] = useState("");
   const [roomInput, setRoomInput] = useState("");
-  const [categoryVoteInput, setCategoryVoteInput] = useState("You Gotta Point" as GameType);
-  const [fakerVote, setFakerVote] = useState('');
+  const [_fakerVote, setFakerVote] = useState('');
 
   const [room, setRoom] = useState("");
   const [player, setPlayer] = useState(null as Player | null);
@@ -64,10 +61,9 @@ export const App = () => {
   const [players, setPlayers] = useState([] as Player[]);
   const [category, setCategory] = useState("None" as GameType);
   const [question, setQuestion] = useState("PLACEHOLDER" as Question | 'PLACEHOLDER');
-  const [isFaker, setIsFaker] = useState(false);
-  const [faker, setFaker] = useState('');
   const [round, setRound] = useState(1);
-  const [correctGuess, setCorrectGuess] = useState(false);
+  const [correctGuess] = useState(false);
+  const [faker, setFaker] = useState('');
     
   const handleNameSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -122,7 +118,8 @@ export const App = () => {
     initializeWaitingRoom();
 
     MyGame.observeChanges({
-      changed: function (id: string, fields: Record<string, unknown>) {
+      changed: function (_id: string, fields: Record<string, unknown>) {
+        console.log(fields);
         if (fields.players) {
           setPlayers(fields.players as Player[]);
         }
@@ -132,6 +129,12 @@ export const App = () => {
         if (fields.question) {
           setQuestion(fields.question as Question);
         }
+        if (fields.gameType) {
+          setCategory(fields.gameType as GameType)
+        }
+        if (fields.faker) {
+          setFaker(fields.faker as string)
+        }
       },
     });
   }
@@ -140,23 +143,6 @@ export const App = () => {
     setRound(1);
     setCategory('None');
     setGameState('Waiting');
-  }
-
-  const handleCategoryVote = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    setCategory(categoryVoteInput);
-
-    // ACTUALLY RANDOMIZE THIS PER PLAYER; look at this
-    const isFaker = 0.5 > Math.random();
-    setIsFaker(isFaker);
-    if (isFaker) {
-      setFaker(player!.name);
-    } else {
-      setFaker('Kris');
-    }
-
-    setGameState('Question Display');
   }
 
   function returnStateComponent(state: GameState) {
@@ -171,9 +157,9 @@ export const App = () => {
     } else if (state === 'Waiting') {
       return <Waiting players={players} player={player!} room={room}></Waiting>
     } else if (state === 'Question Voting') {
-      return <QuestionVoting handleCategoryVote={handleCategoryVote} setCategoryVoteInput={setCategoryVoteInput}></QuestionVoting>
+      return <QuestionVoting player={player!}></QuestionVoting>
     } else if (state === 'Question Display') {
-      return <QuestionDisplay category={category} player={player!} isFaker={isFaker} setQuestion={setQuestion} continueToPerformAction={continueToPerformAction}></QuestionDisplay>
+      return <QuestionDisplay category={category} player={player!} faker={faker} question={question} continueToPerformAction={continueToPerformAction}></QuestionDisplay>
     } else if (state === 'Perform Action') {
       return <PerformAction category={category} continueToFakerVoting={continueToFakerVoting}></PerformAction>
     } else if (state === 'Faker Voting') {

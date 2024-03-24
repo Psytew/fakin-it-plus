@@ -7,6 +7,11 @@ export interface Room {
     players: Player[];
     lastUsed: Date;
     gameState: GameState;
-    availableQuestions: Record<GameType, Set<Question>>;
+    availableQuestions: Record<GameType, Question[]>;
     question: Question;
+    round: number;
+    gameType: GameType;
+    gameTypeVotes: Record<string, GameType>;
+    fakerVotes: Record<string, string>;
+    faker: string;
 }

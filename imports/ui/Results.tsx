@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ACTION_TIMER } from '/models/timer';
+import { RESULTS_TIMER } from '../../models/constants';
 
 interface ResultsProps {
     correct: boolean,
@@ -8,7 +8,7 @@ interface ResultsProps {
 
 export const Results = (props: ResultsProps) => {
   const [timer, setTimer] = useState(() => {
-    return ACTION_TIMER;
+    return RESULTS_TIMER;
   });
 
   React.useEffect(() => {

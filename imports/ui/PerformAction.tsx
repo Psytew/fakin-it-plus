@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GameType } from '/models/questions';
-import { ACTION_TIMER } from '/models/timer';
+import { ACTION_TIMER } from '../../models/constants';
 
 interface PerformActionProps {
     category: GameType,

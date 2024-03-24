@@ -9,7 +9,12 @@ Meteor.publish('Games', function gamesPublication() {
       "lastUsed": 1,
       "availableQuestions": 1,
       "question": 1,
-      "gameState": 1
+      "gameState": 1,
+      "round": 1,
+      "gameType": 1,
+      "gameTypeVotes": 1,
+      "fakerVotes": 1,
+      "faker": 1,
     }
   });
 });

@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { GameType, Question } from '/models/questions';
 import { Player } from '/models/player';
-import { ACTION_TIMER } from '/models/timer';
-import { generateQuestionBank } from '/utils/generateQuestionBank';
+import { QUESTION_DISPLAY_TIMER } from '../../models/constants';
 
 interface QuestionDisplayProps {
     category: GameType,
     player: Player,
-    isFaker: boolean,
-    setQuestion: React.Dispatch<React.SetStateAction<Question>>,
+    faker: string,
+    question: Question,
     continueToPerformAction: () => void,
 }
 
 export const QuestionDisplay = (props: QuestionDisplayProps) => {
   const [timer, setTimer] = useState(() => {
-    return ACTION_TIMER;
-  });
-
-  const questionBank = generateQuestionBank();
-  const question = [...questionBank[props.category]][0];
-  setTimeout(() => {
-    props.setQuestion(question);
+    return QUESTION_DISPLAY_TIMER;
   });
 
   React.useEffect(() => {
@@ -33,7 +26,7 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
   return (
     <div>
       <p>Category: { props.category }</p>
-      <p>{ !props.isFaker ? question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
+      <p>{ props.player.name !== props.faker ? props.question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
       <p className="timer">{ timer }</p>
     </div>
   )

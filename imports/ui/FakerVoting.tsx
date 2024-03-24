@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Player } from '/models/player';
-import { VOTING_TIMER } from '/models/timer';
+import { FAKER_VOTING_TIMER } from '../../models/constants';
 
 interface FakerVotingProps {
     players: Player[],
@@ -10,7 +10,7 @@ interface FakerVotingProps {
 
 export const FakerVoting = (props: FakerVotingProps) => {
     const [timer, setTimer] = useState(() => {
-        return VOTING_TIMER;
+        return FAKER_VOTING_TIMER;
     });
 
     React.useEffect(() => {
