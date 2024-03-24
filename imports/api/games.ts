@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Player } from '/models/player.js';
-import { generateRoomCode } from './utils/generateRoomCode';
+import { generateRoomCode } from '../../utils/generateRoomCode';
 import { generateQuestionBank } from '/utils/generateQuestionBank';
 import { Room } from '/models/room';
 import { PlayerRoomLink } from '/models/playerRoomLink';
+import { GameState } from '/models/gameState';
 
 export const Games = new Mongo.Collection("games");
 export const Players = new Mongo.Collection("players");
@@ -43,6 +44,8 @@ Meteor.methods({
             code = generateRoomCode();
         }
 
+        player.room = code;
+
         const room = {
             code,
             players: [player],
@@ -57,5 +60,14 @@ Meteor.methods({
         } as PlayerRoomLink);
 
         return code;
+    },
+
+    "game.changeGameState"(code: string, gameState: GameState) {
+        Games.update(
+            {code},
+            {$set : {
+                "gameState": gameState
+            }
+        });
     }
 })

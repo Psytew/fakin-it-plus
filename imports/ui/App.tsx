@@ -25,10 +25,6 @@ export const App = () => {
     setGameState('Enter Name Existing');
   };
 
-  const startGame = () => {
-    setGameState('Question Voting');
-  }
-
   const continueToPerformAction = () => {
     setGameState('Perform Action');
   }
@@ -81,26 +77,25 @@ export const App = () => {
       return;
     }
 
-    const player = {
+    const newPlayer = {
       name: playerNameInput,
-      room: '',
+      room: roomInput,
       isHost: gameState === 'Enter Name New',
       isFaker: false,
       points: 0,
       userId: Random.secret()
     }
-    setPlayer(player);
 
     if (gameState === 'Enter Name New') {
-      Meteor.call("games.new", player, (_error: unknown, result: string) => {
+      Meteor.call("games.new", newPlayer, (_error: unknown, result: string) => {
         if (result === "ERROR") {
           alert("Error creating room");
         } else {
-          joinRoom(result);
+          joinRoom(newPlayer, result);
         }
       });
     } else {
-      Meteor.call("games.join", player, roomInput, (_error: unknown, result: string) => {
+      Meteor.call("games.join", newPlayer, roomInput, (_error: unknown, result: string) => {
         if (result === "ERROR_ROOM_CODE") {
           alert("Error joining room. Are you sure you spelled the room code correctly?");
         } else if (result === "ERROR_ROOM_FULL") {
@@ -108,13 +103,13 @@ export const App = () => {
         } else if (result === "ERROR_NOT_WAITING") {
           alert("This room is actively in a round of gameplay.")
         } else {
-          joinRoom(result);
+          joinRoom(newPlayer, result);
         }
       })
     }
   };
 
-  function joinRoom(code: string) {
+  function joinRoom(newPlayer: Player, code: string) {
     Meteor.subscribe('MyGame');
     Session.set("inGame", true);
 
@@ -123,6 +118,7 @@ export const App = () => {
 
     setRoom(myGameSnapshot.code);
     setPlayers(myGameSnapshot.players);
+    setPlayer(myGameSnapshot.players.find((snapshotPlayer: Player) => snapshotPlayer.userId === newPlayer.userId));
     initializeWaitingRoom();
 
     MyGame.observeChanges({
@@ -154,12 +150,9 @@ export const App = () => {
     // ACTUALLY RANDOMIZE THIS PER PLAYER; look at this
     const isFaker = 0.5 > Math.random();
     setIsFaker(isFaker);
-    console.log(isFaker);
     if (isFaker) {
-      console.log('setting to patrick');
       setFaker(player!.name);
     } else {
-      console.log('setting to kris');
       setFaker('Kris');
     }
 
@@ -176,7 +169,7 @@ export const App = () => {
       const isNewGame = state === 'Enter Name New';
       return <EnterName isNewGame={isNewGame} handleNameSubmit={handleNameSubmit} setPlayerName={setPlayerNameInput} setRoomInput={setRoomInput}></EnterName>
     } else if (state === 'Waiting') {
-      return <Waiting players={players} room={room} startGame={startGame}></Waiting>
+      return <Waiting players={players} player={player!} room={room}></Waiting>
     } else if (state === 'Question Voting') {
       return <QuestionVoting handleCategoryVote={handleCategoryVote} setCategoryVoteInput={setCategoryVoteInput}></QuestionVoting>
     } else if (state === 'Question Display') {
