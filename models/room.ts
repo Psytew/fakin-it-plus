@@ -11,7 +11,8 @@ export interface Room {
     question: Question;
     round: number;
     gameType: GameType;
-    gameTypeVotes: Record<string, GameType>;
+    gameTypeVotes: Record<string, GameType | 'Random'>;
     fakerVotes: Record<string, string>;
     faker: string;
+    correct: boolean;
 }

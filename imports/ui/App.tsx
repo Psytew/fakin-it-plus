@@ -25,15 +25,6 @@ export const App = () => {
     setGameState('Enter Name Existing');
   };
 
-  const continueAfterResults = (correct: boolean) => {
-    if (correct) {
-      initializeWaitingRoom();
-    } else {
-      setRound(round + 1);
-      setGameState('Question Display');
-    }
-  }
-
   const [playerNameInput, setPlayerNameInput] = useState("");
   const [roomInput, setRoomInput] = useState("");
 
@@ -44,8 +35,9 @@ export const App = () => {
   const [category, setCategory] = useState("None" as GameType);
   const [question, setQuestion] = useState("PLACEHOLDER" as Question | 'PLACEHOLDER');
   const [round, setRound] = useState(1);
-  const [correctGuess] = useState(false);
+  const [correct, setCorrect] = useState(false);
   const [faker, setFaker] = useState('');
+  const [fakerVotes, setFakerVotes] = useState({});
     
   const handleNameSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -116,6 +108,16 @@ export const App = () => {
         if (fields.faker) {
           setFaker(fields.faker as string)
         }
+        if (fields.fakerVotes) {
+          setFakerVotes(fields.fakerVotes as Record<string, string>)
+        }
+        if (fields.correct) {
+          setCorrect(fields.correct as boolean)
+        }
+        if (fields.round) {
+          console.log('round', fields.round);
+          setRound(fields.round as number);
+        }
       },
     });
   }
@@ -140,13 +142,13 @@ export const App = () => {
     } else if (state === 'Question Voting') {
       return <QuestionVoting player={player!}></QuestionVoting>
     } else if (state === 'Question Display') {
-      return <QuestionDisplay category={category} player={player!} faker={faker} question={question}></QuestionDisplay>
+      return <QuestionDisplay category={category} player={player!} faker={faker} question={question} round={round}></QuestionDisplay>
     } else if (state === 'Perform Action') {
-      return <PerformAction category={category} player={player!}></PerformAction>
+      return <PerformAction category={category} player={player!} round={round}></PerformAction>
     } else if (state === 'Faker Voting') {
-      return <FakerVoting players={players} player={player!}></FakerVoting>
+      return <FakerVoting players={players} player={player!} fakerVotes={fakerVotes} round={round} category={category}></FakerVoting>
     } else if (state === 'Results') {
-      return <Results correct={correctGuess} continueAfterResults={continueAfterResults}></Results>
+      return <Results player={player!} players={players} round={round} faker={faker} correct={correct} category={category}></Results>
     }
     return '';
   }

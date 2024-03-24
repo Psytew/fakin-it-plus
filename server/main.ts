@@ -15,6 +15,7 @@ Meteor.publish('Games', function gamesPublication() {
       "gameTypeVotes": 1,
       "fakerVotes": 1,
       "faker": 1,
+      "correct": 1,
     }
   });
 });

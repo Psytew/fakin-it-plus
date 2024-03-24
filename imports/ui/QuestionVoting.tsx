@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GAME_TYPES, GameType } from '/models/questions';
+import { GAME_TYPES } from '/models/questions';
 import { Player } from '/models/player';
 import { Meteor } from 'meteor/meteor';
 import { CATEGORY_VOTING_TIMER } from '/models/constants';
@@ -22,7 +22,7 @@ export const QuestionVoting = (props: QuestionVotingProps) => {
     }
   }, [timer]);
 
-  function voteOnGameType(gameType: GameType) {
+  function voteOnGameType(gameType: string) {
     Meteor.call("game.voteOnQuestion", gameType, props.player);
   }
   
@@ -30,8 +30,9 @@ export const QuestionVoting = (props: QuestionVotingProps) => {
     <p>Pick a category</p>
     <select className="select" onChange={(e) => {
       let { value } = e.target
-        voteOnGameType(value as GameType);
+        voteOnGameType(value as string);
     }}>
+    <option value="Random" key="random">Random</option>
     {
       GAME_TYPES.filter((gameType) => gameType !== "None").map(gameType => <option key={gameType} value={gameType}>{ gameType }</option>)
     }

@@ -8,7 +8,8 @@ interface QuestionDisplayProps {
     category: GameType,
     player: Player,
     faker: string,
-    question: Question
+    question: Question,
+    round: number,
 }
 
 export const QuestionDisplay = (props: QuestionDisplayProps) => {
@@ -44,6 +45,7 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
   return (
     <div>
       <p>Category: { props.category }</p>
+      <p>Round { props.round }</p>
       <p>{ explanation(props.category) }</p>
       <p>{ props.player.name !== props.faker ? props.question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
       <p className="timer">{ timer }</p>

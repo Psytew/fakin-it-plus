@@ -6,7 +6,8 @@ import { Meteor } from 'meteor/meteor';
 
 interface PerformActionProps {
     player: Player,
-    category: GameType
+    category: GameType,
+    round: number,
 }
 
 export const PerformAction = (props: PerformActionProps) => {
@@ -26,6 +27,7 @@ export const PerformAction = (props: PerformActionProps) => {
   return (
     <div>
       <p>Category: { props.category }</p>
+      <p>Round { props.round }</p>
       <p>Go!</p>
       <p className="timer">{ timer }</p>
     </div>
