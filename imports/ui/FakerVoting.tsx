@@ -10,6 +10,8 @@ interface FakerVotingProps {
     fakerVotes: Record<string, string>,
     round: number,
     category: GameType,
+    question: string,
+    faker: string,
 }
 
 export const FakerVoting = (props: FakerVotingProps) => {
@@ -44,7 +46,8 @@ export const FakerVoting = (props: FakerVotingProps) => {
     <div className="flex flex-column">
         <p>Category: { props.category }</p>
         <p>Round { props.round }</p>
-        <p>Vote for who you think the Faker is!</p>
+        <p>{ props.question }</p>
+        { props.faker === props.player.name ? <p>Blend in! Accuse! Cause havoc!</p> : <p>Vote for who you think the Faker is!</p> }
         <select className="select" onChange={(e) => {
         let { value } = e.target
             voteOnFaker(value);

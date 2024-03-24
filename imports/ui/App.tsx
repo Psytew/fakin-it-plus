@@ -145,7 +145,7 @@ export const App = () => {
     } else if (state === 'Perform Action') {
       return <PerformAction category={category} player={player!} round={round}></PerformAction>
     } else if (state === 'Faker Voting') {
-      return <FakerVoting players={players} player={player!} fakerVotes={fakerVotes} round={round} category={category}></FakerVoting>
+      return <FakerVoting players={players} player={player!} fakerVotes={fakerVotes} round={round} category={category} question={question} faker={faker}></FakerVoting>
     } else if (state === 'Results') {
       return <Results player={player!} players={players} round={round} faker={faker} correct={correct} category={category}></Results>
     }

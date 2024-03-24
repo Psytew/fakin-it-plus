@@ -37,6 +37,7 @@ flex-column p {
 
 .container p {
   text-align: center;
+  margin-top: 0;
 }
 
 .container .form > div {
@@ -66,7 +67,7 @@ flex-column p {
 
 .container .timer {
   position: absolute;
-  top: 5px;
+  top: 30px;
   right: 30px;
   font-size: 24px;
 }
