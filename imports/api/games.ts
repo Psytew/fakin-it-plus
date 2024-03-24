@@ -200,9 +200,6 @@ Meteor.methods({
         availableQuestionsForCategory = availableQuestionsForCategory.filter((q) => q !== question);
         availableQuestions[gameType] = availableQuestionsForCategory;
 
-        console.log(round);
-        console.log(round + 1);
-
         Games.update(
             {code},
             {$set : {

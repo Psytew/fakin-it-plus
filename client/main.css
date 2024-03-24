@@ -11,10 +11,14 @@
   flex-direction: column;
 }
 
+flex-column p {
+  margin: 3px;
+}
+
 .container {
   max-width: 375px;
   margin: 0 auto;
-  padding: 8px;
+  padding: 8px 32px;
   border-radius: 10px;
   background-color: lightgrey;
   height: 90vh;

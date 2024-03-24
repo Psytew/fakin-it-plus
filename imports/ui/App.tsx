@@ -93,29 +93,28 @@ export const App = () => {
 
     MyGame.observeChanges({
       changed: function (_id: string, fields: Record<string, unknown>) {
-        if (fields.players) {
+        if (fields.players !== undefined) {
           setPlayers(fields.players as Player[]);
         }
-        if (fields.gameState) {
+        if (fields.gameState !== undefined) {
           setGameState(fields.gameState as GameState);
         }
-        if (fields.question) {
+        if (fields.question !== undefined) {
           setQuestion(fields.question as Question);
         }
-        if (fields.gameType) {
+        if (fields.gameType !== undefined) {
           setCategory(fields.gameType as GameType)
         }
-        if (fields.faker) {
+        if (fields.faker !== undefined) {
           setFaker(fields.faker as string)
         }
-        if (fields.fakerVotes) {
+        if (fields.fakerVotes !== undefined) {
           setFakerVotes(fields.fakerVotes as Record<string, string>)
         }
-        if (fields.correct) {
+        if (fields.correct !== undefined) {
           setCorrect(fields.correct as boolean)
         }
-        if (fields.round) {
-          console.log('round', fields.round);
+        if (fields.round !== undefined) {
           setRound(fields.round as number);
         }
       },
