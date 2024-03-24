@@ -15,7 +15,6 @@ export const Players = new Mongo.Collection("players");
 Meteor.methods({
     "games.join"(player: Player, code: string) {    
         const room = Games.findOne({code});
-        console.log(room);
         if (room) {
             if (room.players.length >= MAX_PLAYERS) {
                 return "ERROR_ROOM_FULL";
@@ -90,7 +89,6 @@ Meteor.methods({
     },
 
     "game.voteOnQuestion"(gameType: GameType, player: Player) {
-        console.log(gameType);
         const room = Games.findOne({code: player.room})! as Room;
         const gameTypeVotes = room.gameTypeVotes;
         gameTypeVotes[player.name] = gameType;
@@ -112,8 +110,6 @@ Meteor.methods({
         });
         const randomPick = gameTypeVotes[Math.floor(Math.random() * gameTypeVotes.length)]
 
-        console.log(gameTypeVotes);
-        console.log(randomPick);
 
         const players = room.players;
         const fakerIndex = Math.floor(Math.random() * players.length);

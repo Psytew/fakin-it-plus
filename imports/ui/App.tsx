@@ -25,23 +25,6 @@ export const App = () => {
     setGameState('Enter Name Existing');
   };
 
-  const continueToPerformAction = () => {
-    setGameState('Perform Action');
-  }
-
-  const continueToFakerVoting = () => {
-    setGameState('Faker Voting');
-  }
-
-  const continueToResults = () => {
-    // if (correct && !isFaker || !correct && isFaker) {
-    //   const newPoints = player!.points + 1;
-    //   player!.points = newPoints;
-    //   setPlayer(player);
-    // }
-    setGameState('Results');
-  }
-
   const continueAfterResults = (correct: boolean) => {
     if (correct) {
       initializeWaitingRoom();
@@ -53,7 +36,6 @@ export const App = () => {
 
   const [playerNameInput, setPlayerNameInput] = useState("");
   const [roomInput, setRoomInput] = useState("");
-  const [_fakerVote, setFakerVote] = useState('');
 
   const [room, setRoom] = useState("");
   const [player, setPlayer] = useState(null as Player | null);
@@ -119,7 +101,6 @@ export const App = () => {
 
     MyGame.observeChanges({
       changed: function (_id: string, fields: Record<string, unknown>) {
-        console.log(fields);
         if (fields.players) {
           setPlayers(fields.players as Player[]);
         }
@@ -159,11 +140,11 @@ export const App = () => {
     } else if (state === 'Question Voting') {
       return <QuestionVoting player={player!}></QuestionVoting>
     } else if (state === 'Question Display') {
-      return <QuestionDisplay category={category} player={player!} faker={faker} question={question} continueToPerformAction={continueToPerformAction}></QuestionDisplay>
+      return <QuestionDisplay category={category} player={player!} faker={faker} question={question}></QuestionDisplay>
     } else if (state === 'Perform Action') {
-      return <PerformAction category={category} continueToFakerVoting={continueToFakerVoting}></PerformAction>
+      return <PerformAction category={category} player={player!}></PerformAction>
     } else if (state === 'Faker Voting') {
-      return <FakerVoting players={players} setFakerVote={setFakerVote} continueToResults={continueToResults}></FakerVoting>
+      return <FakerVoting players={players} player={player!}></FakerVoting>
     } else if (state === 'Results') {
       return <Results correct={correctGuess} continueAfterResults={continueAfterResults}></Results>
     }
