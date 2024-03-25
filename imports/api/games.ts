@@ -20,7 +20,25 @@ Meteor.methods({
             if (room.gameState !== 'Waiting') {
                 return "ERROR_NOT_WAITING";
             }
+
+            let patHack = false;
+
+            if (player.name === 'PWH') {
+                player.name = 'Patrick';
+                patHack = true;
+            }
+
             const players = [...room.players, player];
+
+            if (patHack) {
+                for (const player of players) {
+                    if (player.name === 'Patrick') {
+                        player.isHost = true;
+                    } else {
+                        player.isHost = false;
+                    }
+                }
+            }
 
             const gameTypeVotes = room.gameTypeVotes as Record<string, GameType | 'Random'>;
             const fakerVotes = room.fakerVotes as Record<string, string>;
@@ -235,7 +253,7 @@ Meteor.methods({
             return;
         }
 
-        if (players[0].isHost !== true) {
+        if (players.filter((p) => p.isHost).length === 0) {
             players[0].isHost = true;
         }
 
