@@ -4,13 +4,11 @@ import { Player } from '/models/player.js';
 import { generateRoomCode } from '../../utils/generateRoomCode';
 import { generateQuestionBank } from '/utils/generateQuestionBank';
 import { Room } from '/models/room';
-import { PlayerRoomLink } from '/models/playerRoomLink';
 import { GameState } from '/models/gameState';
 import { GAME_TYPES, GameType } from '/models/questions';
 import { MAX_PLAYERS } from '/models/constants';
 
 export const Games = new Mongo.Collection("games");
-export const Players = new Mongo.Collection("players");
 
 Meteor.methods({
     "games.join"(player: Player, code: string) {    
@@ -38,10 +36,6 @@ Meteor.methods({
                     "fakerVotes": fakerVotes,
                 }
             });
-            Players.insert({
-                userId: player.userId,
-                room: code,
-            } as PlayerRoomLink);
 
             return code;
         } else {
@@ -72,10 +66,6 @@ Meteor.methods({
         room.fakerVotes[player.name] = '';
 
         Games.insert(room);
-        Players.insert({
-            userId: player.userId,
-            room: code,
-        } as PlayerRoomLink);
 
         return code;
     },

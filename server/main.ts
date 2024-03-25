@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Games, Players } from '/imports/api/games';
+import { Games } from '/imports/api/games';
 
 Meteor.publish('Games', function gamesPublication() {
   return Games.find({}, {
@@ -18,8 +18,4 @@ Meteor.publish('Games', function gamesPublication() {
       "correct": 1,
     }
   });
-});
-
-Meteor.publish('Players', function playersPublication() {
-  return Players.find();
 });

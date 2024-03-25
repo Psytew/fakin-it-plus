@@ -9,5 +9,4 @@ Meteor.startup(() => {
   root.render(<App />);
 
   Meteor.subscribe('Games');
-  Meteor.subscribe('Players');
 });
