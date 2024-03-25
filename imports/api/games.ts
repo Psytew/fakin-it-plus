@@ -235,4 +235,40 @@ Meteor.methods({
             }
         });
     },
+
+    "game.disconnect"(id: string, code: string) {
+        const room = Games.findOne({code})! as Room;
+        const players = room.players.filter((player: Player) => player.userId !== id);
+
+        if (players.length === 0) {
+            Games.remove({code});
+            return;
+        }
+
+        if (players[0].isHost !== true) {
+            players[0].isHost = true;
+        }
+
+        const { fakerVotes, gameTypeVotes } = room;
+
+        for (const player of players) {
+            fakerVotes[player.name] = '';
+            gameTypeVotes[player.name] = 'Random';
+        }
+
+        Games.update(
+            {code},
+            {$set : {
+                "players": players,
+                "gameState": 'Waiting',
+                "fakerVotes": fakerVotes,
+                "question": 'PLACEHOLDER',
+                "gameTypeVotes": gameTypeVotes,
+                "gameType": 'None',
+                "faker": '',
+                "correct": false,
+                "round": 1,
+            }}
+        )
+    },
 })

@@ -91,10 +91,16 @@ export const App = () => {
     setPlayer(myGameSnapshot.players.find((snapshotPlayer: Player) => snapshotPlayer.userId === newPlayer.userId));
     initializeWaitingRoom();
 
+    window.addEventListener('beforeunload', function () {
+      Meteor.call("game.disconnect", newPlayer.userId, code);
+    }, false);
+
     MyGame.observeChanges({
       changed: function (_id: string, fields: Record<string, unknown>) {
         if (fields.players !== undefined) {
           setPlayers(fields.players as Player[]);
+          const updatedPlayer = (fields.players as Player[]).filter((p) => p.userId === newPlayer.userId)[0];
+          setPlayer(updatedPlayer);
         }
         if (fields.gameState !== undefined) {
           setGameState(fields.gameState as GameState);
