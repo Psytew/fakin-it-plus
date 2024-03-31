@@ -289,4 +289,13 @@ Meteor.methods({
             }}
         )
     },
+
+    "game.setTimingConfiguration"(code: string, timingConfiguration: TimingConfiguration) {
+        Games.update(
+            {code},
+            {$set : {
+                "timingConfiguration": timingConfiguration,
+            }
+        });
+    },
 })

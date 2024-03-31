@@ -150,7 +150,7 @@ export const App = () => {
       const isNewGame = state === 'Enter Name New';
       return <EnterName isNewGame={isNewGame} handleNameSubmit={handleNameSubmit} setPlayerName={setPlayerNameInput} setRoomInput={setRoomInput}></EnterName>
     } else if (state === 'Waiting') {
-      return <Waiting players={players} player={player!} room={code}></Waiting>
+      return <Waiting timingConfiguration={timingConfiguration!} players={players} player={player!} room={code}></Waiting>
     } else if (state === 'Question Voting') {
       return <QuestionVoting timingConfiguration={timingConfiguration!} player={player!}></QuestionVoting>
     } else if (state === 'Question Display') {

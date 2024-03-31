@@ -21,7 +21,7 @@ flex-column p {
   padding: 8px 32px;
   border-radius: 10px;
   background-color: lightgrey;
-  height: 90vh;
+  min-height: 90vh;
   position: relative;
 }
 
