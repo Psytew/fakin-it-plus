@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { GAME_TYPES } from '/models/questions';
 import { Player } from '/models/player';
 import { Meteor } from 'meteor/meteor';
-import { CATEGORY_VOTING_TIMER } from '/models/constants';
+import { TimingConfiguration } from '/models/timingConfiguration';
 
 interface QuestionVotingProps {
     player: Player,
+    timingConfiguration: TimingConfiguration,
 }
 
 export const QuestionVoting = (props: QuestionVotingProps) => {
   const [timer, setTimer] = useState(() => {
-    return CATEGORY_VOTING_TIMER;
+    return props.timingConfiguration.categoryVotingTimer;
   });
 
   React.useEffect(() => {

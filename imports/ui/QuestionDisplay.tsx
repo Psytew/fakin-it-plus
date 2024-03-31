@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { GameType, Question } from '/models/questions';
 import { Player } from '/models/player';
-import { QUESTION_DISPLAY_TIMER } from '../../models/constants';
 import { Meteor } from 'meteor/meteor';
+import { TimingConfiguration } from '/models/timingConfiguration';
 
 interface QuestionDisplayProps {
     category: GameType,
@@ -10,11 +10,12 @@ interface QuestionDisplayProps {
     faker: string,
     question: Question,
     round: number,
+    timingConfiguration: TimingConfiguration,
 }
 
 export const QuestionDisplay = (props: QuestionDisplayProps) => {
   const [timer, setTimer] = useState(() => {
-    return QUESTION_DISPLAY_TIMER;
+    return props.timingConfiguration.questionDisplayTimer;
   });
 
   React.useEffect(() => {

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { MAX_ROUNDS_1, MAX_ROUNDS_2, MAX_ROUNDS_CUTOFF, RESULTS_TIMER } from '../../models/constants';
+import { MAX_ROUNDS_1, MAX_ROUNDS_2, MAX_ROUNDS_CUTOFF } from '../../models/constants';
 import { Player } from '/models/player';
 import { Meteor } from 'meteor/meteor';
 import { GameType } from '/models/questions';
+import { TimingConfiguration } from '/models/timingConfiguration';
 
 interface ResultsProps {
     correct: boolean,
@@ -11,11 +12,12 @@ interface ResultsProps {
     round: number,
     faker: string,
     category: GameType,
+    timingConfiguration: TimingConfiguration,
 }
 
 export const Results = (props: ResultsProps) => {
   const [timer, setTimer] = useState(() => {
-    return RESULTS_TIMER;
+    return props.timingConfiguration.resultsTimer;
   });
 
   const isOver = props.round >= (props.players.length >= MAX_ROUNDS_CUTOFF ? MAX_ROUNDS_2 : MAX_ROUNDS_1);

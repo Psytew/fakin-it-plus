@@ -14,6 +14,7 @@ import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { Games } from '../api/games';
+import { TimingConfiguration } from '/models/timingConfiguration';
 
 export const App = () => {
 
@@ -28,7 +29,7 @@ export const App = () => {
   const [playerNameInput, setPlayerNameInput] = useState("");
   const [roomInput, setRoomInput] = useState("");
 
-  const [room, setRoom] = useState("");
+  const [code, setCode] = useState("");
   const [player, setPlayer] = useState(null as Player | null);
   const [gameState, setGameState] = useState('Initial' as GameState);
   const [players, setPlayers] = useState([] as Player[]);
@@ -38,6 +39,7 @@ export const App = () => {
   const [correct, setCorrect] = useState(false);
   const [faker, setFaker] = useState('');
   const [fakerVotes, setFakerVotes] = useState({});
+  const [timingConfiguration, setTimingConfiguration] = useState(null as TimingConfiguration | null);
     
   const handleNameSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -86,9 +88,10 @@ export const App = () => {
     const MyGame = Games.find({code});
     const myGameSnapshot = Games.findOne({ code })!;
 
-    setRoom(myGameSnapshot.code);
+    setCode(myGameSnapshot.code);
     setPlayers(myGameSnapshot.players);
     setPlayer(myGameSnapshot.players.find((snapshotPlayer: Player) => snapshotPlayer.userId === newPlayer.userId));
+    setTimingConfiguration(myGameSnapshot.timingConfiguration);
     initializeWaitingRoom();
 
     window.addEventListener('beforeunload', function () {
@@ -123,6 +126,10 @@ export const App = () => {
         if (fields.round !== undefined) {
           setRound(fields.round as number);
         }
+        if (fields.timingConfiguration !== undefined) {
+          console.log(fields.timingConfiguration);
+          setTimingConfiguration(fields.timingConfiguration as TimingConfiguration);
+        }
       },
     });
   }
@@ -143,17 +150,17 @@ export const App = () => {
       const isNewGame = state === 'Enter Name New';
       return <EnterName isNewGame={isNewGame} handleNameSubmit={handleNameSubmit} setPlayerName={setPlayerNameInput} setRoomInput={setRoomInput}></EnterName>
     } else if (state === 'Waiting') {
-      return <Waiting players={players} player={player!} room={room}></Waiting>
+      return <Waiting players={players} player={player!} room={code}></Waiting>
     } else if (state === 'Question Voting') {
-      return <QuestionVoting player={player!}></QuestionVoting>
+      return <QuestionVoting timingConfiguration={timingConfiguration!} player={player!}></QuestionVoting>
     } else if (state === 'Question Display') {
-      return <QuestionDisplay category={category} player={player!} faker={faker} question={question} round={round}></QuestionDisplay>
+      return <QuestionDisplay timingConfiguration={timingConfiguration!} category={category} player={player!} faker={faker} question={question} round={round}></QuestionDisplay>
     } else if (state === 'Perform Action') {
-      return <PerformAction category={category} player={player!} round={round}></PerformAction>
+      return <PerformAction timingConfiguration={timingConfiguration!} category={category} player={player!} round={round}></PerformAction>
     } else if (state === 'Faker Voting') {
-      return <FakerVoting players={players} player={player!} fakerVotes={fakerVotes} round={round} category={category} question={question} faker={faker}></FakerVoting>
+      return <FakerVoting timingConfiguration={timingConfiguration!} players={players} player={player!} fakerVotes={fakerVotes} round={round} category={category} question={question} faker={faker}></FakerVoting>
     } else if (state === 'Results') {
-      return <Results player={player!} players={players} round={round} faker={faker} correct={correct} category={category}></Results>
+      return <Results timingConfiguration={timingConfiguration!} player={player!} players={players} round={round} faker={faker} correct={correct} category={category}></Results>
     }
     return '';
   }

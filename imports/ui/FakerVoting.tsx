@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Player } from '/models/player';
-import { FAKER_VOTING_TIMER } from '../../models/constants';
 import { Meteor } from 'meteor/meteor';
 import { GameType } from '/models/questions';
+import { TimingConfiguration } from '/models/timingConfiguration';
 
 interface FakerVotingProps {
     players: Player[],
@@ -12,11 +12,12 @@ interface FakerVotingProps {
     category: GameType,
     question: string,
     faker: string,
+    timingConfiguration: TimingConfiguration,
 }
 
 export const FakerVoting = (props: FakerVotingProps) => {
     const [timer, setTimer] = useState(() => {
-        return FAKER_VOTING_TIMER;
+        return props.timingConfiguration.fakerVotingTimer;
     });
 
     React.useEffect(() => {

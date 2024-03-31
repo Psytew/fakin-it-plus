@@ -1,6 +1,7 @@
 import { GameState } from "./gameState";
 import { Player } from "./player";
 import { GameType, Question } from "./questions";
+import { TimingConfiguration } from "./timingConfiguration";
 
 export interface Room {
     code: string;
@@ -15,4 +16,5 @@ export interface Room {
     fakerVotes: Record<string, string>;
     faker: string;
     correct: boolean;
+    timingConfiguration: TimingConfiguration;
 }

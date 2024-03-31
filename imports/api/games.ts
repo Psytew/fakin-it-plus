@@ -6,7 +6,8 @@ import { generateQuestionBank } from '/utils/generateQuestionBank';
 import { Room } from '/models/room';
 import { GameState } from '/models/gameState';
 import { GAME_TYPES, GameType } from '/models/questions';
-import { MAX_PLAYERS } from '/models/constants';
+import { ACTION_TIMER, CATEGORY_VOTING_TIMER, FAKER_VOTING_TIMER, MAX_PLAYERS, QUESTION_DISPLAY_TIMER, RESULTS_TIMER } from '/models/constants';
+import { TimingConfiguration } from '/models/timingConfiguration';
 
 export const Games = new Mongo.Collection("games");
 
@@ -69,6 +70,14 @@ Meteor.methods({
 
         player.room = code;
 
+        const timingConfiguration = {
+            categoryVotingTimer: CATEGORY_VOTING_TIMER,
+            questionDisplayTimer: QUESTION_DISPLAY_TIMER,
+            actionTimer: ACTION_TIMER,
+            fakerVotingTimer: FAKER_VOTING_TIMER,
+            resultsTimer: RESULTS_TIMER
+        } as TimingConfiguration;
+
         const room = {
             code,
             players: [player],
@@ -79,6 +88,7 @@ Meteor.methods({
             gameTypeVotes: {},
             fakerVotes: {},
             round: 1,
+            timingConfiguration,
         } as Room;
         room.gameTypeVotes[player.name] = 'Random';
         room.fakerVotes[player.name] = '';

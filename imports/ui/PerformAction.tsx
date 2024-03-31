@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { GameType } from '/models/questions';
-import { ACTION_TIMER } from '../../models/constants';
 import { Player } from '/models/player';
 import { Meteor } from 'meteor/meteor';
+import { TimingConfiguration } from '/models/timingConfiguration';
 
 interface PerformActionProps {
     player: Player,
     category: GameType,
     round: number,
+    timingConfiguration: TimingConfiguration,
 }
 
 export const PerformAction = (props: PerformActionProps) => {
   const [timer, setTimer] = useState(() => {
-    return ACTION_TIMER;
+    return props.timingConfiguration.actionTimer;
   });
 
   React.useEffect(() => {
