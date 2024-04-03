@@ -91,6 +91,7 @@ export const App = () => {
     setCode(myGameSnapshot.code);
     setPlayers(myGameSnapshot.players);
     setPlayer(myGameSnapshot.players.find((snapshotPlayer: Player) => snapshotPlayer.userId === newPlayer.userId));
+    setFakerVotes(myGameSnapshot.fakerVotes);
     setTimingConfiguration(myGameSnapshot.timingConfiguration);
     initializeWaitingRoom();
 

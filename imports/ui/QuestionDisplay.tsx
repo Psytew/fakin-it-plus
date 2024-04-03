@@ -34,17 +34,17 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
 
   function explanation(category: GameType) {
     if (category === 'Face Value') {
-      return 'Make a face like the one described below!';
+      return 'Make a face like the one described above!';
     } else if (category === 'Hands of Truth') {
-      return 'Raise your hand if the statement below is true!';
+      return 'Raise your hand if the statement above is true!';
     } else if (category === 'Impersifacions') {
-      return 'Use only your hands and face (no voice) to do the below impersonation!';
+      return 'Use only your hands and face (no voice) to do the above impersonation!';
     } else if (category === 'Number Pressure') {
-      return 'Hold up a number of fingers as described by the prompt below!';
+      return 'Hold up a number of fingers as described by the prompt above!';
     } else if (category === 'This Much') {
-      return 'Hold your hands as far apart as you think the sentence below describes you!';
+      return 'Hold your hands as far apart as you think the sentence above describes you!';
     } else if (category === 'You Gotta Point') {
-      return 'Point at the player you think fits the prompt below best!';
+      return 'Point at the player you think fits the prompt above best!';
     }
   }
 

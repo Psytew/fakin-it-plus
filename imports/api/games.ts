@@ -233,7 +233,10 @@ Meteor.methods({
 
     "game.returnToWaitingRoom"(code: string) {
         const room = Games.findOne({code})! as Room;
-        const { fakerVotes, gameTypeVotes, players } = room;
+        const { players } = room;
+
+        const fakerVotes = {} as Record<string, string>;
+        const gameTypeVotes = {} as Record<string, string>;
 
         for (const player of players) {
             fakerVotes[player.name] = '';
