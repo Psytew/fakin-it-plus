@@ -121,19 +121,20 @@ Meteor.methods({
         });
     },
 
-    "game.moveToQuestionDisplay"(code: string) {
+    // rand1 is the vote, rand2 is the category, rand3 is the faker, rand4 is the question
+    "game.moveToQuestionDisplay"(code: string, rand1: number, rand2: number, rand3: number) {
         const room = Games.findOne({code})! as Room;
 
         const gameTypeVotes = Object.entries(room.gameTypeVotes).map(([_name, vote]) => {
             return vote;
         });
-        let randomPick = gameTypeVotes[Math.floor(Math.random() * gameTypeVotes.length)]
+        let randomPick = gameTypeVotes[rand1]
         if (randomPick === 'Random') {
-            randomPick = GAME_TYPES[Math.floor(Math.random() * 6)];
+            randomPick = GAME_TYPES[rand2];
         }
 
         const players = room.players;
-        const fakerIndex = Math.floor(Math.random() * players.length);
+        const fakerIndex = Math.floor(rand3);
         players[fakerIndex].isFaker = true;
         const faker = players[fakerIndex].name;
 

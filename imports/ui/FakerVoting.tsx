@@ -45,10 +45,11 @@ export const FakerVoting = (props: FakerVotingProps) => {
     
     return (
     <div className="flex flex-column">
-        <p>Category: { props.category }</p>
-        <p>Round { props.round }</p>
-        <p>{ props.question }</p>
-        { props.faker === props.player.name ? <p>Blend in! Accuse! Cause havoc!</p> : <p>Vote for who you think the Faker is!</p> }
+        <div className="roundInformation">
+            <p>{ props.category }</p>
+            <p>-Round { props.round }-</p>
+        </div>
+        { props.faker === props.player.name ? <p className="mainInstruction">Blend in! Accuse! Cause havoc!</p> : <p className="mainInstruction">Vote for who you think the Faker is!</p> }
         <select className="select" onChange={(e) => {
         let { value } = e.target
             voteOnFaker(value);
@@ -64,6 +65,7 @@ export const FakerVoting = (props: FakerVotingProps) => {
             Object.entries(currentVotes).map(([key, value]) => <li key={key}> { key } ({value} votes) </li>)
         }
         </ul>
+        <p className="secondaryInstruction">{ props.question }</p>
     </div>
     )
 }

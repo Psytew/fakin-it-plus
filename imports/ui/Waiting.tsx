@@ -88,12 +88,12 @@ export const Waiting = (props: WaitingProps) => {
           <div className="flex flex-column">
             <p>Question Display</p>
             <select className="select" onChange={(e) => setTimingConfiguration("Question Display Timer", parseInt(e.target.value))}>
-              <option selected={props.timingConfiguration.questionDisplayTimer === 5}>5</option>
               <option selected={props.timingConfiguration.questionDisplayTimer === 10}>10</option>
-              <option selected={props.timingConfiguration.questionDisplayTimer === 15}>15</option>
               <option selected={props.timingConfiguration.questionDisplayTimer === 20}>20</option>
-              <option selected={props.timingConfiguration.questionDisplayTimer === 25}>25</option>
               <option selected={props.timingConfiguration.questionDisplayTimer === 30}>30</option>
+              <option selected={props.timingConfiguration.questionDisplayTimer === 40}>40</option>
+              <option selected={props.timingConfiguration.questionDisplayTimer === 50}>50</option>
+              <option selected={props.timingConfiguration.questionDisplayTimer === 60}>60</option>
             </select>
           </div>
           <div className="flex flex-column">

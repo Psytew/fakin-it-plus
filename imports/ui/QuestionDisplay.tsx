@@ -17,6 +17,11 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
   const [timer, setTimer] = useState(() => {
     return props.timingConfiguration.questionDisplayTimer;
   });
+  const [showRules, setShowRules] = useState(false);
+
+  function toggleShowRules() {
+    setShowRules(!showRules);
+  }
 
   React.useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
@@ -45,10 +50,18 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
 
   return (
     <div>
-      <p>Category: { props.category }</p>
-      <p>Round { props.round }</p>
-      <p>{ explanation(props.category) }</p>
-      <p>{ props.player.name !== props.faker ? props.question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
+      <div className="roundInformation">
+        <p>{ props.category }</p>
+        <p>-Round { props.round }-</p>
+      </div>
+      <p className="mainInstruction">{ props.player.name !== props.faker ? props.question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
+      <div className="flex flex-column">
+          <p>
+            <button onClick={() => toggleShowRules()}>Show/Hide Rules</button>
+          </p>
+        </div>
+        { showRules ?
+        <p>{ explanation(props.category) }</p> : '' }
       <p className="timer">{ timer }</p>
     </div>
   )

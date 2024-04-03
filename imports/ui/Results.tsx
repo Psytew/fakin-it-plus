@@ -36,38 +36,48 @@ export const Results = (props: ResultsProps) => {
 }, [timer]);
   if (isOver) {
     return <>
-      <p>Category: { props.category }</p>
-      <p>Round { props.round }</p>
-      <p>Looks like the faker, { props.faker }, won this round!</p>
+      <div className="roundInformation">
+        <p>{ props.category }</p>
+        <p>-Round { props.round }-</p>
+      </div>
+      <p className="mainInstruction">Looks like the faker, { props.faker }, won this round!</p>
       <p className="timer">{ timer }</p>
     </>
   }
   if (props.correct && props.player.name !== props.faker) {
     return <>
-      <p>Category: { props.category }</p>
-      <p>Round { props.round }</p>
-      <p>You're correct, the faker was { props.faker } all along!</p>
+      <div className="roundInformation">
+        <p>{ props.category }</p>
+        <p>-Round { props.round }-</p>
+      </div>
+      <p className="mainInstruction">You're correct, the faker was { props.faker } all along!</p>
       <p className="timer">{ timer }</p>
     </>
   } else if (props.correct) {
     return <>
-      <p>Category: { props.category }</p>
-      <p>Round { props.round }</p>
-      <p>Sorry faker, you've been caught!</p>
+      <div className="roundInformation">
+        <p>{ props.category }</p>
+        <p>-Round { props.round }-</p>
+      </div>
+      <p className="mainInstruction">Sorry faker, you've been caught!</p>
       <p className="timer">{ timer }</p>
     </>
   } else if (!props.correct && props.player.name !== props.faker) {
     return <>
-      <p>Category: { props.category }</p>
-      <p>Round { props.round }</p>
-      <p>You failed to find the faker! Get ready to try again!</p>
+      <div className="roundInformation">
+        <p>{ props.category }</p>
+        <p>-Round { props.round }-</p>
+      </div>
+      <p className="mainInstruction">You failed to find the faker! Get ready to try again!</p>
       <p className="timer">{ timer }</p>
     </>
   } else {
     return <>
-      <p>Category: { props.category }</p>
-      <p>Round { props.round }</p>
-      <p>Nice job fakin it! Get ready to do it again!</p>
+      <div className="roundInformation">
+        <p>{ props.category }</p>
+        <p>-Round { props.round }-</p>
+      </div>
+      <p className="mainInstruction">Nice job fakin it! Get ready to do it again!</p>
       <p className="timer">{ timer }</p>
     </>
   }

@@ -67,7 +67,7 @@ export const App = () => {
         }
       });
     } else {
-      Meteor.call("games.join", newPlayer, roomInput, (_error: unknown, result: string) => {
+      Meteor.call("games.join", newPlayer, roomInput.toUpperCase(), (_error: unknown, result: string) => {
         if (result === "ERROR_ROOM_CODE") {
           alert("Error joining room. Are you sure you spelled the room code correctly?");
         } else if (result === "ERROR_ROOM_FULL") {
@@ -152,7 +152,7 @@ export const App = () => {
     } else if (state === 'Waiting') {
       return <Waiting timingConfiguration={timingConfiguration!} players={players} player={player!} room={code}></Waiting>
     } else if (state === 'Question Voting') {
-      return <QuestionVoting timingConfiguration={timingConfiguration!} player={player!}></QuestionVoting>
+      return <QuestionVoting timingConfiguration={timingConfiguration!} player={player!} players={players}></QuestionVoting>
     } else if (state === 'Question Display') {
       return <QuestionDisplay timingConfiguration={timingConfiguration!} category={category} player={player!} faker={faker} question={question} round={round}></QuestionDisplay>
     } else if (state === 'Perform Action') {

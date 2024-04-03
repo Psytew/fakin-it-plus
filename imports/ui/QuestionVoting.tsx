@@ -6,6 +6,7 @@ import { TimingConfiguration } from '/models/timingConfiguration';
 
 interface QuestionVotingProps {
     player: Player,
+    players: Player[],
     timingConfiguration: TimingConfiguration,
 }
 
@@ -18,7 +19,10 @@ export const QuestionVoting = (props: QuestionVotingProps) => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
     if (timer === 0) {
       if (props.player.isHost) {
-        Meteor.call("game.moveToQuestionDisplay", props.player.room, "Question Voting");
+        const rand1 = Math.floor(Math.random() * props.players.length);
+        const rand2 = Math.floor(Math.random() * 6);
+        const rand3 = Math.floor(Math.random() * props.players.length);
+        Meteor.call("game.moveToQuestionDisplay", props.player.room, rand1, rand2, rand3);
       }
     }
   }, [timer]);
@@ -28,7 +32,7 @@ export const QuestionVoting = (props: QuestionVotingProps) => {
   }
   
   return <div className="flex flex-column">
-    <p>Pick a category</p>
+    <p className="mainInstruction">Pick a category</p>
     <select className="select" onChange={(e) => {
       let { value } = e.target
         voteOnGameType(value as string);

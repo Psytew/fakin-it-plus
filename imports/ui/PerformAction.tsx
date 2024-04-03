@@ -27,9 +27,11 @@ export const PerformAction = (props: PerformActionProps) => {
 
   return (
     <div>
-      <p>Category: { props.category }</p>
-      <p>Round { props.round }</p>
-      <p>Go!</p>
+      <div className="roundInformation">
+        <p>{ props.category }</p>
+        <p>-Round { props.round }-</p>
+      </div>
+      <p className="mainInstruction">3... 2... 1... Go!</p>
       <p className="timer">{ timer }</p>
     </div>
   )
