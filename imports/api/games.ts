@@ -89,6 +89,7 @@ Meteor.methods({
             fakerVotes: {},
             round: 1,
             timingConfiguration,
+            readyVotes: 0,
         } as Room;
         room.gameTypeVotes[player.name] = 'Random';
         room.fakerVotes[player.name] = '';
@@ -102,7 +103,8 @@ Meteor.methods({
         Games.update(
             {code},
             {$set : {
-                "gameState": gameState
+                "gameState": gameState,
+                "readyVotes": 0,
             }
         });
     },
@@ -154,6 +156,7 @@ Meteor.methods({
                 "question": question,
                 "availableQuestions": availableQuestions,
                 "faker": faker,
+                "readyVotes": 0
             }
         });
     },
@@ -201,6 +204,7 @@ Meteor.methods({
                 "gameState": 'Results',
                 "players": players,
                 "correct": correct,
+                "readyVotes": 0,
             }
         });
     },
@@ -227,6 +231,7 @@ Meteor.methods({
                 "question": question,
                 "availableQuestions": availableQuestions,
                 "round": round + 1,
+                "readyVotes": 0,
             }
         });
     },
@@ -254,6 +259,7 @@ Meteor.methods({
                 "faker": '',
                 "correct": false,
                 "round": 1,
+                "readyVotes": 0,
             }
         });
     },
@@ -290,6 +296,7 @@ Meteor.methods({
                 "faker": '',
                 "correct": false,
                 "round": 1,
+                "readyVotes": 0,
             }}
         )
     },
@@ -299,6 +306,16 @@ Meteor.methods({
             {code},
             {$set : {
                 "timingConfiguration": timingConfiguration,
+            }
+        });
+    },
+
+    "game.lockInVote"(code: string) {
+        const room = Games.findOne({code})! as Room;
+        Games.update(
+            {code},
+            {$set : {
+                "readyVotes": room.readyVotes + 1,
             }
         });
     },

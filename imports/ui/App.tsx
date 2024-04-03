@@ -40,6 +40,7 @@ export const App = () => {
   const [faker, setFaker] = useState('');
   const [fakerVotes, setFakerVotes] = useState({});
   const [timingConfiguration, setTimingConfiguration] = useState(null as TimingConfiguration | null);
+  const [readyVotes, setReadyVotes] = useState(0);
     
   const handleNameSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -128,8 +129,10 @@ export const App = () => {
           setRound(fields.round as number);
         }
         if (fields.timingConfiguration !== undefined) {
-          console.log(fields.timingConfiguration);
           setTimingConfiguration(fields.timingConfiguration as TimingConfiguration);
+        }
+        if (fields.readyVotes !== undefined) {
+          setReadyVotes(fields.readyVotes as number);
         }
       },
     });
@@ -153,15 +156,15 @@ export const App = () => {
     } else if (state === 'Waiting') {
       return <Waiting timingConfiguration={timingConfiguration!} players={players} player={player!} room={code}></Waiting>
     } else if (state === 'Question Voting') {
-      return <QuestionVoting timingConfiguration={timingConfiguration!} player={player!} players={players}></QuestionVoting>
+      return <QuestionVoting timingConfiguration={timingConfiguration!} player={player!} players={players} readyVotes={readyVotes}></QuestionVoting>
     } else if (state === 'Question Display') {
-      return <QuestionDisplay timingConfiguration={timingConfiguration!} category={category} player={player!} faker={faker} question={question} round={round}></QuestionDisplay>
+      return <QuestionDisplay readyVotes={readyVotes} players={players} timingConfiguration={timingConfiguration!} category={category} player={player!} faker={faker} question={question} round={round}></QuestionDisplay>
     } else if (state === 'Perform Action') {
       return <PerformAction timingConfiguration={timingConfiguration!} category={category} player={player!} round={round}></PerformAction>
     } else if (state === 'Faker Voting') {
-      return <FakerVoting timingConfiguration={timingConfiguration!} players={players} player={player!} fakerVotes={fakerVotes} round={round} category={category} question={question} faker={faker}></FakerVoting>
+      return <FakerVoting readyVotes={readyVotes} timingConfiguration={timingConfiguration!} players={players} player={player!} fakerVotes={fakerVotes} round={round} category={category} question={question} faker={faker}></FakerVoting>
     } else if (state === 'Results') {
-      return <Results timingConfiguration={timingConfiguration!} player={player!} players={players} round={round} faker={faker} correct={correct} category={category}></Results>
+      return <Results readyVotes={readyVotes} timingConfiguration={timingConfiguration!} player={player!} players={players} round={round} faker={faker} correct={correct} category={category}></Results>
     }
     return '';
   }

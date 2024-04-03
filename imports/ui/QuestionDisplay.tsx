@@ -7,10 +7,12 @@ import { TimingConfiguration } from '/models/timingConfiguration';
 interface QuestionDisplayProps {
     category: GameType,
     player: Player,
+    players: Player[],
     faker: string,
     question: Question,
     round: number,
     timingConfiguration: TimingConfiguration,
+    readyVotes: number,
 }
 
 export const QuestionDisplay = (props: QuestionDisplayProps) => {
@@ -18,6 +20,11 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
     return props.timingConfiguration.questionDisplayTimer;
   });
   const [showRules, setShowRules] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  if (props.player.isHost && props.readyVotes === props.players.length) {
+    Meteor.call("game.changeGameState", props.player.room, "Perform Action");
+  }
 
   function toggleShowRules() {
     setShowRules(!showRules);
@@ -47,6 +54,11 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
       return 'Point at the player you think fits the prompt above best!';
     }
   }
+  
+  function isReady() {
+    setReady(true);
+    Meteor.call("game.lockInVote", props.player.room);
+  }
 
   return (
     <div>
@@ -55,6 +67,11 @@ export const QuestionDisplay = (props: QuestionDisplayProps) => {
         <p>-Round { props.round }-</p>
       </div>
       <p className="mainInstruction">{ props.player.name !== props.faker ? props.question : "You're the faker! Blend in! Lie! Cheat! Do whatever it takes!" }</p>
+    <div className="flex flex-column">
+      <p>
+        <button disabled={ready} onClick={() => isReady()}>{ ready ? "Ready" : "Ready?" }</button>
+      </p>
+    </div>
       <div className="flex flex-column">
           <p>
             <button onClick={() => toggleShowRules()}>Show/Hide Rules</button>

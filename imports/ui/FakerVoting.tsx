@@ -13,12 +13,18 @@ interface FakerVotingProps {
     question: string,
     faker: string,
     timingConfiguration: TimingConfiguration,
+    readyVotes: number,
 }
 
 export const FakerVoting = (props: FakerVotingProps) => {
     const [timer, setTimer] = useState(() => {
         return props.timingConfiguration.fakerVotingTimer;
     });
+    const [ready, setReady] = useState(false);
+  
+    if (props.player.isHost && props.readyVotes === props.players.length) {
+        Meteor.call("game.moveToResults", props.player.room, "Question Voting");
+    }
 
     React.useEffect(() => {
         timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
@@ -41,6 +47,11 @@ export const FakerVoting = (props: FakerVotingProps) => {
         if (value in currentVotes) {
             currentVotes[value] = currentVotes[value] + 1;
         }
+    }
+  
+    function isReady() {
+      setReady(true);
+      Meteor.call("game.lockInVote", props.player.room);
     }
     
     return (
@@ -66,6 +77,11 @@ export const FakerVoting = (props: FakerVotingProps) => {
         }
         </ul>
         <p className="secondaryInstruction">{ props.question }</p>
+        <div className="flex flex-column">
+            <p>
+                <button disabled={ready} onClick={() => isReady()}>{ ready ? "Ready" : "Ready?" }</button>
+            </p>
+        </div>
     </div>
     )
 }

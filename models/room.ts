@@ -17,4 +17,5 @@ export interface Room {
     faker: string;
     correct: boolean;
     timingConfiguration: TimingConfiguration;
+    readyVotes: number;
 }
