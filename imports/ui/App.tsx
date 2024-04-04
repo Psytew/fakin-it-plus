@@ -52,7 +52,7 @@ export const App = () => {
 
     const newPlayer = {
       name: playerNameInput,
-      room: roomInput,
+      room: roomInput.toUpperCase(),
       isHost: gameState === 'Enter Name New',
       isFaker: false,
       points: 0,
